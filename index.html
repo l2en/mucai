@@ -20,7 +20,7 @@
 			<p>另：大量回收工地旧木方、竹跳、旧模板、废钢筋、废柴火</p>
 			<p>地址: 重庆市九龙坡区走马镇椒园村</p>
 			<p class="tel">
-				<label>联系电话:</label><span>158 2336 1606</span><br />
+				<label>联系电话:</label><span>158 2336 1601</span><br />
 				<label></label><span>158 5604 7408</span>
 			</p>
 		</div>
@@ -41,7 +41,7 @@
 		</footer>
 
 	</div>
-	<div class="howWrapper" onclick="handleModal()">
+	<div class="mask" onclick="handleModal()">
 		<p class="howText">进行导航，请使用浏览器打开</p>
 		<img src='./imgs/arrow.png' class="how" />
 	</div>
@@ -63,7 +63,7 @@
 <script>
 	// 判断环境并唤起地图
 	function isWxAndOpenMap(){
-		if(getIsWxClient()){
+		if(!getIsWxClient()){
 			handleModal()
 		}else{
 			OpenApp();
@@ -201,10 +201,11 @@
 	});
 	// 关闭蒙层
 	function handleModal() {
-		if ($('.howWrapper').is(':hidden')) {
-			$('.howWrapper').show();
+		if ($('.mask').is(':hidden')) {
+			$(".mask").css('marginTop', $(document).scrollTop()+'px');
+			$('.mask').show();
 		} else {
-			$('.howWrapper').hide();
+			$('.mask').hide();
 		}
 	}
 	// 判断是否为微信环境

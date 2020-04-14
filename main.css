@@ -94,10 +94,12 @@ a:active {color: #337ab7} /* 鼠标按下去时的状态 */
     right: 0;
     top: 0;
 }
-.howWrapper{
+.mask{
     position: absolute;
     left: 0;
     top: 0;
+    right: 0;
+    bottom: 0;
     box-sizing: border-box;
     background-color: rgba(0,0,0,0.8);
     z-index: 3;
