@@ -14,7 +14,7 @@
 
 <body>
 	<div class="wd-12 wrapper">
-		<h1 id='title' title='森源木业' class="title" alt='森源木业'>森源木业</h1>
+		<h1 id='title' title='森源木业' class="title" alt='森源木业'><span class="red">森源木业</span></h1>
 		<div class="des">
 			<p>本厂销售20 - 90公分定型板、2-3米旧木方、竹跳、大板</p>
 			<p>另：大量回收工地旧木方、九夹板、竹跳、竹胶板、废钢材、废柴火等</p>
@@ -63,7 +63,7 @@
 <script>
 	// 判断环境并唤起地图
 	function isWxAndOpenMap(){
-		if(!getIsWxClient()){
+		if(getIsWxClient()){
 			handleModal()
 		}else{
 			OpenApp();
