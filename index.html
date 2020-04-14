@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="./imgs/ico.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
-	<title>森源木材</title>
-	<meta name="description" content="森源木材、森源木业、重庆森源木业、走马森源木业、重庆走马森源木业 - 本厂生产销售20-90公分定型板、2-3米旧木方、竹跳、大板、旧模板、废钢筋、废柴火" />
+	<title>森源木业</title>
+	<meta name="description" content="森源木业、森源木业、重庆森源木业、走马森源木业、重庆走马森源木业 - 本厂生产销售20-90公分定型板、2-3米旧木方、竹跳、大板、旧模板、废钢筋、废柴火" />
 	<meta name="aplus-xplug" content="NONE">
 	<meta name="keyword" content="森源木业、重庆森源木业、走马森源木业、重庆走马森源木业 放心、诚信、质量有保障、高质量、高规格、二手、二手木材、柴火、竹跳、钢筋" />
 	<link rel="stylesheet" href="./main.css">
@@ -14,14 +14,14 @@
 
 <body>
 	<div class="wd-12 wrapper">
-		<h1 id='title' title='森源木材' class="title" alt='森源木材'>森源木材</h1>
+		<h1 id='title' title='森源木业' class="title" alt='森源木业'>森源木业</h1>
 		<div class="des">
 			<p>本厂生产销售20 - 90公分定型板、2-3米旧木方、竹跳、大板</p>
-			<p>另：大量回收工地旧木方、竹跳、旧模板、废钢筋、废柴火</p>
+			<p>另：大量回收工地旧木方、九夹板、竹跳、竹胶板、废钢材、废柴火等</p>
 			<p>地址: 重庆市九龙坡区走马镇椒园村</p>
 			<p class="tel">
-				<label>联系电话:</label><span>158 2336 1601</span><br />
-				<label></label><span>158 5604 7408</span>
+				<label>联系电话:</label><span class='red'>158 2336 1601</span><br />
+				<label></label><span class='red'>158 5604 7408</span>
 			</p>
 		</div>
 		<div class="map">
@@ -35,7 +35,7 @@
 		</div>
 		<footer>
 			<p class="hz"><span>欢迎合作</span><span>互利共赢</span></p>
-			<p>详细信息欢迎来电咨询<br />电话: 15823361601&nbsp;&nbsp;&nbsp;&nbsp;15856047408</p>
+			<p>详细信息欢迎来电咨询<br />电话: <span class='red'>15823361601</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class='red'>15856047408</span></p>
 			<p>地址: 重庆市九龙坡区走马镇椒园村</p>
 			<a onclick="isWxAndOpenMap()">导航直达</a>
 		</footer>
@@ -73,7 +73,7 @@
 		var addr = {
 			lat: '29.477324',
 			lng: '106.323908',
-			addrName: '走马-椒园村-森源木材'
+			addrName: '走马-椒园村-森源木业'
 		}
 		var geolocation = new BMap.Geolocation();
 		geolocation.getCurrentPosition(function (r) {
@@ -204,7 +204,15 @@
 		if ($('.mask').is(':hidden')) {
 			$(".mask").css('marginTop', $(document).scrollTop()+'px');
 			$('.mask').show();
+			$('body').css({
+			　　"overflow-x":"hidden",
+			　　"overflow-y":"hidden"
+			});
 		} else {
+			$('body').css({
+			　　"overflow-x":"auto",
+			　　"overflow-y":"auto"
+			});
 			$('.mask').hide();
 		}
 	}

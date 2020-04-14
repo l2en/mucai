@@ -6,6 +6,9 @@
 body{
     background-color: #fff;
 }
+.red{
+    color: rgb(211, 11, 11);
+}
 .dis-n{
     display: none;
 }
