@@ -64,7 +64,7 @@ footer{
     margin-top: 20px;
     margin-bottom: 20px;;
 }
-img{
+.wrapper img{
     position: relative;
     width: 90%;
     box-shadow: 0 0 10px rgba(0,0,0,.3);
@@ -86,3 +86,32 @@ a:link {color: #337ab7} /* 未访抄问时的状zhidao态 */
 a:visited {color: #337ab7} /* 已访问过的状态 */
 a:hover {color: #337ab7} /* 鼠标移动到链接上时的状态 */
 a:active {color: #337ab7} /* 鼠标按下去时的状态 */
+.how{
+    position: absolute;
+    width: 100px;
+    height: 240px;
+    border: 0;
+    right: 0;
+    top: 0;
+}
+.howWrapper{
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 3;
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+    display: none;
+}
+.howText{
+    top: 40%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}

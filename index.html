@@ -20,25 +20,30 @@
 			<p>另：大量回收工地旧木方、竹跳、旧模板、废钢筋、废柴火</p>
 			<p>地址: 重庆市九龙坡区走马镇椒园村</p>
 			<p class="tel">
-				<label>联系电话:</label><span>158 2336 1606</span><br/>
+				<label>联系电话:</label><span>158 2336 1606</span><br />
 				<label></label><span>158 5604 7408</span>
 			</p>
 		</div>
 		<div class="map">
 			<iframe src="./map/map.html" frameborder="0"></iframe>
-			<div class="openMap" onclick="OpenApp()">导航</div>
+			<div class="openMap" onclick="isWxAndOpenMap()">导航</div>
 		</div>
 		<div class="dis-area">
-			<a href="javascript:void(0)"><img src="./imgs/banner.jpeg" alt="banner"/></a>
-			<a href="javascript:void(0)"><img src="./imgs/muban.jpeg" alt=""/></a>
-			<a href="javascript:void(0)"><img src="./imgs/mufang.jpg" alt=""/></a>
+			<a href="javascript:void(0)"><img src="./imgs/banner.jpeg" alt="banner" /></a>
+			<a href="javascript:void(0)"><img src="./imgs/muban.jpeg" alt="" /></a>
+			<a href="javascript:void(0)"><img src="./imgs/mufang.jpg" alt="" /></a>
 		</div>
 		<footer>
 			<p class="hz"><span>欢迎合作</span><span>互利共赢</span></p>
-			<p>详细信息欢迎来电咨询<br/>电话: 15823361601&nbsp;&nbsp;&nbsp;&nbsp;15856047408</p>
+			<p>详细信息欢迎来电咨询<br />电话: 15823361601&nbsp;&nbsp;&nbsp;&nbsp;15856047408</p>
 			<p>地址: 重庆市九龙坡区走马镇椒园村</p>
-			<a onclick="OpenApp()">导航直达</a>
+			<a onclick="isWxAndOpenMap()">导航直达</a>
 		</footer>
+
+	</div>
+	<div class="howWrapper" onclick="handleModal()">
+		<p class="howText">进行导航，请使用浏览器打开</p>
+		<img src='./imgs/arrow.png' class="how" />
 	</div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
@@ -52,139 +57,164 @@
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
 <!-- <script src="./map/openNativeApp.js"></script> -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=auqpBhpnBSs0Xm9GLoB3NESWmtLvyj5e"></script>
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" ></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
 <!-- 唤起百度地图 -->
 <script>
-function OpenApp() {
-	var addr = {
-		lat: '29.477324',
-		lng: '106.323908',
-		addrName:'走马-椒园村-森源木材'
+	// 判断环境并唤起地图
+	function isWxAndOpenMap(){
+		if(getIsWxClient()){
+			handleModal()
+		}else{
+			OpenApp();
+		}
 	}
-    var geolocation = new BMap.Geolocation();
-    geolocation.getCurrentPosition(function (r) {
-      if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-        if (r.point.lat != "" && r.point.lng != "") {
-          scheme = "://map/direction?origin=latlng:" + r.point.lng + "," + r.point.lat + "|name:我的位置&destination=latlng:"+addr.lat+","+addr.lng+"|name:"+addr.addrName+"&mode=driving";
-  
-          var I = navigator.userAgent;
-          var isiPad = (I.match(/(iPad).*OS\s([\d_]+)/)) ? true : false;
-          var isAndroid = I.match(/android/i) ? true : false;
-          var isMac = (I.match(/(Mac\sOS)\sX\s([\d_]+)/)) ? true : false;
-          var isiPhone = (!isiPad && I.match(/(iPhone\sOS)\s([\d_]+)/)) ? true : false;
-          var isSafari = (isiPhone || isiPad) && I.match(/Safari/);
-          var isMQQBrowser = I.match(/MQQBrowser\/([\d\.]+)/) ? true : false;
-          var isUCBrowser = I.match(/UCBrowser\/([\d\.]+)/) ? true : false;
-          var isQQ = (!isMQQBrowser) ? (I.match(/QQ\/([\d\.]+)/) ? true : false) : false;
-          var safariVersion = 0;
-          isSafari && (safariVersion = I.match(/Version\/([\d\.]+)/));
-          try { safariVersion = parseFloat(safariVersion[1], 10) } catch (R) { }
-          var isSAMSUNG = I.toUpperCase().indexOf("SAMSUNG-SM-N7508V") != -1;
-          // 尝试打开手机APP  
-          if ((isSafari && safariVersion >= 9) || isMac || isSAMSUNG || isUCBrowser || isMQQBrowser || isQQ || isiPhone) {
-            tryIOpen(scheme);
-          } else {
-            tryAOpen(scheme);
-          }
-  
-        } else {
-          alert("无法获取当前位置!");
-        }
-      }
-      else {
-        alert("无法获取当前位置!");
-        console('无法获取当前位置' + this.getStatus());
-      }
-    }, { enableHighAccuracy: true, timeout: 1000 });
-  }
-  
-  function tryAOpen(scheme) {
-    var protocol = "bdapp";
-    var iframe = document.createElement("iframe");
-    iframe.Id = "i" + Math.random().toString().replace(".", "");
-    iframe.src = protocol + scheme;
-    iframe.style.display = "none";
-    document.body.appendChild(iframe);
-    setTimeout(function () {
-      document.body.removeChild(iframe);
-    }, 500)
-  }
-  
-  function tryIOpen(scheme) {
-    var protocol = "baidumap";
-    var a = document.createElement("a");
-    a.id = "a" + Math.random().toString().replace(".", "");
-    a.href = protocol + scheme;
-    document.body.appendChild(a);
-    var T = document.createEvent("HTMLEvents");
-    T.initEvent("click", !1, !1),
-      a.dispatchEvent(T)
+	function OpenApp() {
+		var addr = {
+			lat: '29.477324',
+			lng: '106.323908',
+			addrName: '走马-椒园村-森源木材'
+		}
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function (r) {
+			if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+				if (r.point.lat != "" && r.point.lng != "") {
+					scheme = "://map/direction?origin=latlng:" + r.point.lng + "," + r.point.lat + "|name:我的位置&destination=latlng:" + addr.lat + "," + addr.lng + "|name:" + addr.addrName + "&mode=driving";
+
+					var I = navigator.userAgent;
+					var isiPad = (I.match(/(iPad).*OS\s([\d_]+)/)) ? true : false;
+					var isAndroid = I.match(/android/i) ? true : false;
+					var isMac = (I.match(/(Mac\sOS)\sX\s([\d_]+)/)) ? true : false;
+					var isiPhone = (!isiPad && I.match(/(iPhone\sOS)\s([\d_]+)/)) ? true : false;
+					var isSafari = (isiPhone || isiPad) && I.match(/Safari/);
+					var isMQQBrowser = I.match(/MQQBrowser\/([\d\.]+)/) ? true : false;
+					var isUCBrowser = I.match(/UCBrowser\/([\d\.]+)/) ? true : false;
+					var isQQ = (!isMQQBrowser) ? (I.match(/QQ\/([\d\.]+)/) ? true : false) : false;
+					var safariVersion = 0;
+					isSafari && (safariVersion = I.match(/Version\/([\d\.]+)/));
+					try { safariVersion = parseFloat(safariVersion[1], 10) } catch (R) { }
+					var isSAMSUNG = I.toUpperCase().indexOf("SAMSUNG-SM-N7508V") != -1;
+					// 尝试打开手机APP  
+					if ((isSafari && safariVersion >= 9) || isMac || isSAMSUNG || isUCBrowser || isMQQBrowser || isQQ || isiPhone) {
+						tryIOpen(scheme);
+					} else {
+						tryAOpen(scheme);
+					}
+
+				} else {
+					alert("无法获取当前位置!");
+				}
+			}
+			else {
+				alert("无法获取当前位置!");
+				console('无法获取当前位置' + this.getStatus());
+			}
+		}, { enableHighAccuracy: true, timeout: 1000 });
 	}
-	
 
-    var imgUrl = 'http://dev.mymax.cn/affix/manmanhouse/images/share.jpg'; 
-    var lineLink = 'http://dev.mymax.cn/affix/manmanhouse/index.html'; 
-    var descContent = '人类天生就爱玩游戏，游戏为什么吸引人？如果借助游戏的规律，是否可以让工作学习变得更精彩？';
-    var shareTitle = '游戏化学习工作坊第四站-北京清华科技园';
-    var appid = '';
+	function tryAOpen(scheme) {
+		var protocol = "bdapp";
+		var iframe = document.createElement("iframe");
+		iframe.Id = "i" + Math.random().toString().replace(".", "");
+		iframe.src = protocol + scheme;
+		iframe.style.display = "none";
+		document.body.appendChild(iframe);
+		setTimeout(function () {
+			document.body.removeChild(iframe);
+		}, 500)
+	}
 
-    $.ajax({
-        type : 'POST',
-        url :  "http://dev.mymax.cn/running/comm/weixin/open/jsSDKConfig", //这个地址并非通用且长期有效，请去微信官方查看文档，并自行配置
-        dataType : "json",
-        data:{url:window.location.href},
-        success : function(response){
-             var appId = response.s.appId;
-                var timestamp = response.s.timeStamp;
-                var nonceStr = response.s.nonceStr;
-                var signature = response.s.signature;
+	function tryIOpen(scheme) {
+		var protocol = "baidumap";
+		var a = document.createElement("a");
+		a.id = "a" + Math.random().toString().replace(".", "");
+		a.href = protocol + scheme;
+		document.body.appendChild(a);
+		var T = document.createEvent("HTMLEvents");
+		T.initEvent("click", !1, !1),
+			a.dispatchEvent(T)
+	}
 
-                wx.config({
-                    debug: false,
-                    appId: appId,
-                    timestamp: timestamp,
-                    nonceStr: nonceStr,
-                    signature: signature,
-                    jsApiList: [
-                        'checkJsApi',
-                        'onMenuShareTimeline',
-                        'onMenuShareAppMessage'
-                    ]
-                });
-                 wx.ready(function() {
-                         
-                        wx.onMenuShareTimeline({
-                            title: shareTitle, // 分享标题
-                            link: lineLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                            imgUrl: imgUrl, // 分享图标
-                            success: function () {
-                                // 用户确认分享后执行的回调函数
-                            },
-                            cancel: function () {
-                                // 用户取消分享后执行的回调函数
-                            }
-                        });
-                        wx.onMenuShareAppMessage({
-                            title: shareTitle, // 分享标题
-                            desc: descContent, // 分享描述
-                            link: lineLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                            imgUrl: imgUrl, // 分享图标
-                            type: '', // 分享类型,music、video或link，不填默认为link
-                            dataUrl:'' , // 如果type是music或video，则要提供数据链接，默认为空
-                            success: function () {
-                                // 用户确认分享后执行的回调函数
-                                
-                            },
-                            cancel: function () {
-                                // 用户取消分享后执行的回调函数
-                            }
-                        });
-                });
-        },
-        error:function(response){
-            window.parent.growl("删除失败["+response.responseText+"]!","error");
+
+	var imgUrl = 'http://dev.mymax.cn/affix/manmanhouse/images/share.jpg';
+	var lineLink = 'http://dev.mymax.cn/affix/manmanhouse/index.html';
+	var descContent = '人类天生就爱玩游戏，游戏为什么吸引人？如果借助游戏的规律，是否可以让工作学习变得更精彩？';
+	var shareTitle = '游戏化学习工作坊第四站-北京清华科技园';
+	var appid = '';
+
+	$.ajax({
+		type: 'POST',
+		url: "http://dev.mymax.cn/running/comm/weixin/open/jsSDKConfig", //这个地址并非通用且长期有效，请去微信官方查看文档，并自行配置
+		dataType: "json",
+		data: { url: window.location.href },
+		success: function (response) {
+			var appId = response.s.appId;
+			var timestamp = response.s.timeStamp;
+			var nonceStr = response.s.nonceStr;
+			var signature = response.s.signature;
+
+			wx.config({
+				debug: false,
+				appId: appId,
+				timestamp: timestamp,
+				nonceStr: nonceStr,
+				signature: signature,
+				jsApiList: [
+					'checkJsApi',
+					'onMenuShareTimeline',
+					'onMenuShareAppMessage'
+				]
+			});
+			wx.ready(function () {
+
+				wx.onMenuShareTimeline({
+					title: shareTitle, // 分享标题
+					link: lineLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+					imgUrl: imgUrl, // 分享图标
+					success: function () {
+						// 用户确认分享后执行的回调函数
+					},
+					cancel: function () {
+						// 用户取消分享后执行的回调函数
+					}
+				});
+				wx.onMenuShareAppMessage({
+					title: shareTitle, // 分享标题
+					desc: descContent, // 分享描述
+					link: lineLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+					imgUrl: imgUrl, // 分享图标
+					type: '', // 分享类型,music、video或link，不填默认为link
+					dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+					success: function () {
+						// 用户确认分享后执行的回调函数
+
+					},
+					cancel: function () {
+						// 用户取消分享后执行的回调函数
+					}
+				});
+			});
+		},
+		error: function (response) {
+			window.parent.growl("删除失败[" + response.responseText + "]!", "error");
+		}
+	});
+	// 关闭蒙层
+	function handleModal() {
+		if ($('.howWrapper').is(':hidden')) {
+			$('.howWrapper').show();
+		} else {
+			$('.howWrapper').hide();
+		}
+	}
+	// 判断是否为微信环境
+	function getIsWxClient () {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
         }
-    });
+        return false;
+    };
 </script>
+
 </html>
